@@ -75,7 +75,7 @@ namespace CWav
                 int blockAlign = channelCount * BYTES_PER_SAMPLE;
 
                 targetStream.Write(RIFF_HEADER, 0, RIFF_HEADER.Length); //Riff
-                targetStream.Write(PackageInt(byteStreamSize + 42, 4), 0, 4); //ChunkSize
+                targetStream.Write(PackageInt(byteStreamSize + 36, 4), 0, 4); //ChunkSize
 
                 targetStream.Write(FORMAT_WAVE, 0, FORMAT_WAVE.Length); //Format
                 targetStream.Write(FORMAT_TAG, 0, FORMAT_TAG.Length);//SubChunkID
