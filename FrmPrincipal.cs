@@ -47,17 +47,29 @@ namespace CWav
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //if (clsWav.CreateFileWav(clsWav.CreateSin(trackBar.Value,trackBarF.Value), true))
-            //    atualizaLog("Arquivo Wav Criado !");
             vAbreArq = new OpenFileDialog();
             vAbreArq.Filter = "Excel Files|*.xls";
-            if (vAbreArq.ShowDialog() == DialogResult.OK)
+            try
             {
-                atualizaLog("Iniciando criação do arquivo Wav...");
-                byte[] bSoundData = clsXls.ReadXls(vAbreArq.FileName);
-                if (bSoundData != null)
-                    if (clsWav.CreateFileWav(bSoundData, true))
-                        atualizaLog("Arquivo Wav Criado !");
+                if (vAbreArq.ShowDialog() == DialogResult.OK)
+                {
+                    atualizaLog("Iniciando criação do arquivo Wav...");
+                    byte[] bSoundData = clsXls.ReadXls(vAbreArq.FileName);
+                    if (bSoundData != null)
+                    {
+                        int iSampleRate = 24000;
+
+                        if (txtSampleRate.Text != "")
+                            iSampleRate = Convert.ToInt16(txtSampleRate.Text);
+
+                        if (clsWav.CreateFileWav(bSoundData, true, iSampleRate))
+                            atualizaLog("Arquivo Wav Criado !");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                atualizaLog("Erro ao criar Wav: "+ ex.Message);
             }
         }
 
@@ -88,11 +100,6 @@ namespace CWav
         private void trackBarF_ValueChanged(object sender, EventArgs e)
         {
             lblFrequence.Text = trackBarF.Value.ToString();
-        }
-
-        private void CWav_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

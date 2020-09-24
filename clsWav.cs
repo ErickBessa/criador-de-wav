@@ -62,7 +62,7 @@ namespace CWav
         }
 
 
-        private static void WriteHeader(Stream targetStream, Int32 byteStreamSize, bool bMono)
+        private static void WriteHeader(Stream targetStream, Int32 byteStreamSize, bool bMono, int sampleRate = 24000)
         {
             try
             {
@@ -70,7 +70,6 @@ namespace CWav
                 if (bMono)
                     channelCount = 1;
 
-                int sampleRate = 8000;
                 int byteRate = sampleRate * channelCount * BYTES_PER_SAMPLE;
                 int blockAlign = channelCount * BYTES_PER_SAMPLE;
 
@@ -112,7 +111,7 @@ namespace CWav
             return retVal;
         }
 
-        public static bool CreateFileWav(byte[] bSoundData, bool bMono)
+        public static bool CreateFileWav(byte[] bSoundData, bool bMono, int iSampleRate)
         {
             try
             {
@@ -122,7 +121,7 @@ namespace CWav
                     string sDateTime = DateTime.Now.ToString("yyyyMMdd_HHmmss");
                     using (FileStream fs = new FileStream(sDateTime + ".wav", FileMode.Create))
                     {
-                        WriteHeader(fs, bSoundData.Length, bMono);
+                        WriteHeader(fs, bSoundData.Length, bMono, iSampleRate);
                         fs.Write(bSoundData, 0, bSoundData.Length);
                         fs.Close();
                     }
