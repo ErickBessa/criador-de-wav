@@ -152,7 +152,7 @@
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.MaximumSize = new System.Drawing.Size(561, 425);
             this.Name = "CWav";
-            this.Text = "CWav 1.2";
+            this.Text = "CWav 1.0";
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarF)).EndInit();
             this.ResumeLayout(false);
